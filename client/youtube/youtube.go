@@ -21,7 +21,7 @@ func New(apiKey string) *YoutubeClient {
 
 func (y *YoutubeClient) GetMusicDetails(title string) ([]YoutubeDetails, error) {
 	encodedTitle := url.QueryEscape(title)
-	url := "https://www.googleapis.com/youtube/v3/search?part=snippet&type=music&maxResults=20&q=%s&key=%s"
+	url := "https://www.googleapis.com/youtube/v3/search?part=snippet&type=musicvideoCategoryId=10&maxResults=11&q=%s&key=%s"
 	resp, err := http.Get(fmt.Sprintf(url, encodedTitle, y.apiKey))
 
 	if err != nil {

@@ -20,9 +20,18 @@ func parseISODuration(iso string) string {
 	iso = strings.ReplaceAll(iso, "S", "s")
 	dur, err := time.ParseDuration(strings.ToLower(iso))
 	if err != nil {
-		return iso // se falhar, devolve o original
+		return iso
 	}
-	return dur.String()
+
+	totalSeconds := int(dur.Seconds())
+	hours := totalSeconds / 3600
+	minutes := (totalSeconds % 3600) / 60
+	seconds := totalSeconds % 60
+
+	if hours > 0 {
+		return fmt.Sprintf("%d:%02d:%02d", hours, minutes, seconds)
+	}
+	return fmt.Sprintf("%d:%02d", minutes, seconds)
 }
 
 func main() {
@@ -134,7 +143,8 @@ func main() {
 				if len(youtubeDetails) > 0 {
 					audioMsg.Title = youtubeDetails[0].Title
 					audioMsg.Performer = youtubeDetails[0].Title
-					audioMsg.Caption = fmt.Sprintf("🎵 %s - %s", youtubeDetails[0].Title, youtubeDetails[0].Title)
+					audioMsg.Caption = fmt.Sprintf("🎵 @%s | <a href=\"https://song.link/y/%s\">Info</a>", bot.Self.UserName, youtubeDetails[0].VideoID)
+					audioMsg.ParseMode = "HTML"
 				} else {
 					audioMsg.Caption = fmt.Sprintf("🎵 Aqui está a música: %s", videoURL)
 				}
