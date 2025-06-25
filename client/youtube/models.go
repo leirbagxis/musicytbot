@@ -12,6 +12,16 @@ type YoutubeResponse struct {
 }
 
 type YoutubeDetails struct {
-	VideoID string `json:"videoId"`
-	Title   string `json:"title"`
+	VideoID  string `json:"videoId"`
+	Title    string `json:"title"`
+	Duration string `json:"duration"`
+}
+
+type MusicDetailsReponse struct {
+	Items []struct {
+		ID             string `json:"id"`
+		ContentDetails struct {
+			Duration string `json:"duration"`
+		} `json:"contentDetails"`
+	} `json:"items"`
 }
